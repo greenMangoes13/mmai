@@ -1,6 +1,6 @@
 # MMAI 2026 - Emma Wang
 
-Welcome to my site for Modeling Multimodal AI 2026.
+Welcome to my site for Multimodal AI 2026.
 This repo contains my homework assignments and random thoughts throughout the class.
 
 ## Bio
@@ -11,7 +11,7 @@ Hi I'm Emma, a junior majoring in Computation and Cognition at MIT. I do researc
 ## Final Project
 For my final project, our group is auditing and improving EEG-to-video generation models, benchmarking cross-modal reconstruction quality and evaluating alignment between neural signals and generated visual content.
 
-[[Group Repo]](https://github.com/winstonqian/EEG2Video) · [[My Fork]](https://github.com/hnxnq7/eeg2video-audit) · [Local Copy](./final-project/)
+[[Group Repo]](https://github.com/winstonqian/EEG2Video) 
 
 ## Homework
 - [Homework 1 - Datasets](./homework/homework-1/) — Curated and analyzed a multimodal dataset, exploring preprocessing, annotation pipelines, and baseline evaluation strategies.
