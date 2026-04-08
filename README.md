@@ -11,7 +11,7 @@ Hi I'm Emma, a junior majoring in Computation and Cognition at MIT. I do researc
 ## Final Project
 For my final project, our group is auditing and improving EEG-to-video generation models, benchmarking cross-modal reconstruction quality and evaluating alignment between neural signals and generated visual content.
 
-[[Group Repo]](https://github.com/winstonqian/EEG2Video) 
+[[Group Repo]](https://github.com/winstonqian/EEG2Video) [[My Fork]](https://github.com/greenMangoes13/EEG2Video) 
 
 ## Homework
 - [Homework 1 - Datasets](./homework/homework-1/) — Curated and analyzed a multimodal dataset, exploring preprocessing, annotation pipelines, and baseline evaluation strategies.
