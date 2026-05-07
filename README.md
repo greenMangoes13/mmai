@@ -17,6 +17,8 @@ For my final project, our group is auditing and improving EEG-to-video generatio
 - [Homework 1 - Datasets](./homework/homework-1/) — Curated and analyzed a multimodal dataset, exploring preprocessing, annotation pipelines, and baseline evaluation strategies.
 - [Homework 2 - Multimodal Fusion](./homework/homework-2/) — Designed and evaluated fusion architectures that combine multiple input modalities for a downstream classification task.
 - [Homework 3 - Vision-Language Models](./homework/homework-3/) — Fine-tuned and probed a vision-language model on a custom task, analyzing cross-modal representations and zero-shot generalization.
+- [Homework 4 - Reinforcement Learning for VLMs (GRPO)](./homework/homework-4/) — Implemented GRPO advantage computation and rule-based reward functions to RL-train Qwen3-VL-2B-Instruct on BUSI breast ultrasound classification; best run achieved 48.1% accuracy vs. 21.8% zero-shot baseline with 100% format compliance.
+- [Homework 5 - Multimodal AI Agents](./homework/homework-5/) — Built a human-in-the-loop clinical decision-support agent for breast ultrasound triage using smolagents, with custom tools (BI-RADS reference, PubMed search, clinician review), adversarial benchmarking, safety evaluation, and Langfuse trace observability.
 
 
 ## Website License
