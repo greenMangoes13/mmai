@@ -1,0 +1,283 @@
+<svg viewBox="0 0 1400 970" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img">
+  <title>Problem Setup and Within-Subject Approach</title>
+  <desc>Three-section figure: input tensor notation and 40-class classification objective; per-subject 7-fold leave-one-block-out cross-validation; and two encoder pipelines for compressed (DE/PSD) and raw EEG features.</desc>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#3D7EA6"/>
+    </marker>
+    <marker id="arr-blk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="970" fill="#FAFBFC"/>
+
+  <!-- Title -->
+  <text x="700" y="42" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a1a2e">
+    Problem Setup &amp; Within-Subject Approach
+  </text>
+
+  <!-- ===================== ROW 1: INPUT &amp; OBJECTIVE ===================== -->
+  <text x="60" y="88" font-size="17" font-weight="bold" fill="#1a1a2e">
+    <tspan fill="#3D7EA6">①</tspan>  Input Representation &amp; Classification Objective
+  </text>
+
+  <!-- Brain visualization -->
+  <g transform="translate(80, 110)">
+    <ellipse cx="75" cy="72" rx="65" ry="52" fill="#FFE5D0" stroke="#1a1a2e" stroke-width="2"/>
+    <path d="M 75,28 Q 60,50 60,72 Q 60,96 75,118" fill="none" stroke="#1a1a2e" stroke-width="1" opacity="0.4"/>
+    <path d="M 75,28 Q 90,50 90,72 Q 90,96 75,118" fill="none" stroke="#1a1a2e" stroke-width="1" opacity="0.4"/>
+    <circle cx="50" cy="48" r="3.5" fill="#C1121F"/>
+    <circle cx="75" cy="40" r="3.5" fill="#C1121F"/>
+    <circle cx="100" cy="48" r="3.5" fill="#C1121F"/>
+    <circle cx="38" cy="70" r="3.5" fill="#C1121F"/>
+    <circle cx="60" cy="62" r="3.5" fill="#C1121F"/>
+    <circle cx="90" cy="62" r="3.5" fill="#C1121F"/>
+    <circle cx="112" cy="70" r="3.5" fill="#C1121F"/>
+    <circle cx="60" cy="82" r="3.5" fill="#C1121F"/>
+    <circle cx="90" cy="82" r="3.5" fill="#C1121F"/>
+    <circle cx="48" cy="98" r="3.5" fill="#C1121F"/>
+    <circle cx="75" cy="100" r="3.5" fill="#C1121F"/>
+    <circle cx="102" cy="98" r="3.5" fill="#C1121F"/>
+    <text x="75" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a2e">62-channel EEG</text>
+    <text x="75" y="164" text-anchor="middle" font-size="11" fill="#555">@ 200 Hz</text>
+  </g>
+
+  <!-- Arrow brain -> tensor -->
+  <line x1="220" y1="180" x2="270" y2="180" stroke="#3D7EA6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Input tensor box -->
+  <g transform="translate(290, 115)">
+    <rect x="0" y="0" width="320" height="170" rx="6" fill="#E8F0F7" stroke="#3D7EA6" stroke-width="2"/>
+    <text x="160" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D7EA6">INPUT TENSOR</text>
+    <text x="160" y="58" text-anchor="middle" font-size="22" fill="#1a1a2e" font-family="Times, serif">
+      <tspan font-style="italic">X</tspan><tspan baseline-shift="super" font-size="11" font-style="italic">(s,b,c,k)</tspan> ∈ ℝ<tspan baseline-shift="super" font-size="14"><tspan font-style="italic">C</tspan> × <tspan font-style="italic">T</tspan></tspan>
+    </text>
+    <line x1="20" y1="72" x2="300" y2="72" stroke="#3D7EA6" stroke-width="0.5" opacity="0.4"/>
+    <text x="20" y="92" font-size="12" fill="#1a1a2e"><tspan font-style="italic" font-weight="bold">s</tspan> ∈ {1,…,20}: subject</text>
+    <text x="20" y="110" font-size="12" fill="#1a1a2e"><tspan font-style="italic" font-weight="bold">b</tspan> ∈ {1,…,7}: session block</text>
+    <text x="20" y="128" font-size="12" fill="#1a1a2e"><tspan font-style="italic" font-weight="bold">c</tspan> ∈ {1,…,40}: concept class</text>
+    <text x="20" y="146" font-size="12" fill="#1a1a2e"><tspan font-style="italic" font-weight="bold">k</tspan> ∈ {1,…,5}: clip position</text>
+    <text x="20" y="164" font-size="11" fill="#555"><tspan font-style="italic">C</tspan> = 62; <tspan font-style="italic">T</tspan> = 5 (DE/PSD) or 400 (raw)</text>
+  </g>
+
+  <!-- Arrow tensor -> objective -->
+  <line x1="620" y1="180" x2="670" y2="180" stroke="#3D7EA6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Objective box -->
+  <g transform="translate(690, 115)">
+    <rect x="0" y="0" width="640" height="170" rx="6" fill="#FFF6E8" stroke="#FF7F2A" stroke-width="2"/>
+    <text x="320" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#FF7F2A">CLASSIFICATION OBJECTIVE</text>
+    <text x="320" y="42" text-anchor="middle" font-size="12" fill="#555">40-class concept prediction · encoder <tspan font-family="Times, serif" font-style="italic">f</tspan><tspan baseline-shift="sub" font-size="10">θ</tspan> + classifier <tspan font-family="Times, serif" font-style="italic">g</tspan><tspan baseline-shift="sub" font-size="10">φ</tspan></text>
+    <text x="320" y="86" text-anchor="middle" font-size="22" fill="#1a1a2e" font-family="Times, serif">
+      ℒ<tspan baseline-shift="sub" font-size="13">cls</tspan> = − (1/<tspan font-style="italic">N</tspan>) Σ<tspan baseline-shift="sub" font-size="13">i</tspan> log <tspan font-style="italic">g</tspan><tspan baseline-shift="sub" font-size="13">φ</tspan>(<tspan font-style="italic">f</tspan><tspan baseline-shift="sub" font-size="13">θ</tspan>(<tspan font-style="italic">X</tspan><tspan baseline-shift="sub" font-size="13">i</tspan>))<tspan baseline-shift="sub" font-size="13"><tspan font-style="italic">y</tspan><tspan baseline-shift="sub" font-size="9">i</tspan></tspan>
+    </text>
+    <line x1="60" y1="105" x2="580" y2="105" stroke="#FF7F2A" stroke-width="0.5" opacity="0.4"/>
+    <text x="160" y="138" text-anchor="middle" font-size="13" fill="#1a1a2e" font-weight="bold">Chance baselines:</text>
+    <rect x="280" y="124" width="130" height="26" rx="4" fill="#FFF1F1" stroke="#C1121F" stroke-width="1"/>
+    <text x="345" y="142" text-anchor="middle" font-size="13" fill="#C1121F" font-weight="bold">Top-1 = 2.5%</text>
+    <rect x="430" y="124" width="130" height="26" rx="4" fill="#FFF1F1" stroke="#C1121F" stroke-width="1"/>
+    <text x="495" y="142" text-anchor="middle" font-size="13" fill="#C1121F" font-weight="bold">Top-5 = 12.5%</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="60" y1="315" x2="1340" y2="315" stroke="#CCC" stroke-width="1"/>
+
+  <!-- ===================== ROW 2: WITHIN-SUBJECT CV ===================== -->
+  <text x="60" y="350" font-size="17" font-weight="bold" fill="#1a1a2e">
+    <tspan fill="#3D7EA6">②</tspan>  Within-Subject Leave-One-Block-Out (LOBO) Cross-Validation
+  </text>
+
+  <!-- Left: per-subject panel -->
+  <g transform="translate(60, 375)">
+    <rect x="0" y="0" width="280" height="200" rx="6" fill="#FAFAFA" stroke="#3D7EA6" stroke-width="1.5"/>
+    <text x="140" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D7EA6">Per-Subject Modeling</text>
+    <g transform="translate(20, 38)">
+      <rect x="0" y="0" width="42" height="60" rx="5" fill="#3D7EA6"/>
+      <circle cx="21" cy="22" r="9" fill="white"/>
+      <text x="21" y="50" text-anchor="middle" font-size="10" fill="white" font-weight="bold">S1</text>
+      <rect x="55" y="0" width="42" height="60" rx="5" fill="#3D7EA6"/>
+      <circle cx="76" cy="22" r="9" fill="white"/>
+      <text x="76" y="50" text-anchor="middle" font-size="10" fill="white" font-weight="bold">S2</text>
+      <rect x="110" y="0" width="42" height="60" rx="5" fill="#3D7EA6"/>
+      <circle cx="131" cy="22" r="9" fill="white"/>
+      <text x="131" y="50" text-anchor="middle" font-size="10" fill="white" font-weight="bold">S3</text>
+      <text x="170" y="38" font-size="22" fill="#666">⋯</text>
+      <rect x="195" y="0" width="42" height="60" rx="5" fill="#3D7EA6"/>
+      <circle cx="216" cy="22" r="9" fill="white"/>
+      <text x="216" y="50" text-anchor="middle" font-size="10" fill="white" font-weight="bold">S20</text>
+    </g>
+    <text x="140" y="135" text-anchor="middle" font-size="12" fill="#1a1a2e">A separate model per subject —</text>
+    <text x="140" y="153" text-anchor="middle" font-size="12" fill="#1a1a2e">avoids learning subject identity</text>
+    <text x="140" y="171" text-anchor="middle" font-size="12" fill="#1a1a2e">rather than visual content.</text>
+    <text x="140" y="189" text-anchor="middle" font-size="11" font-style="italic" fill="#555">(20 models total)</text>
+  </g>
+
+  <!-- Right: 7-fold matrix -->
+  <g transform="translate(380, 375)">
+    <rect x="0" y="0" width="960" height="200" rx="6" fill="#FAFAFA" stroke="#3D7EA6" stroke-width="1.5"/>
+    <text x="480" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D7EA6">7-Fold LOBO: rotate the test block across the 7 sessions</text>
+
+    <!-- Block headers -->
+    <g transform="translate(80, 38)">
+      <text x="0" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Fold</text>
+      <text x="60" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B1</text>
+      <text x="170" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B2</text>
+      <text x="280" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B3</text>
+      <text x="390" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B4</text>
+      <text x="500" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B5</text>
+      <text x="610" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B6</text>
+      <text x="720" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">B7</text>
+    </g>
+
+    <!-- 7 fold rows: each row = 1 label + 7 cells. Cell w=100 h=14, row gap = 2 (16 total). Fold row N starts at y = 50 + (N-1)*16 -->
+    <g transform="translate(40, 50)">
+      <!-- Fold 1: TEST in column 0 -->
+      <text x="20" y="11" text-anchor="middle" font-size="11" fill="#1a1a2e">F1</text>
+      <rect x="40"  y="0" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="11" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+      <rect x="150" y="0" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="11" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="260" y="0" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="11" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="370" y="0" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="11" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="480" y="0" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="11" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="590" y="0" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="11" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="700" y="0" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="11" text-anchor="middle" font-size="9" fill="white">train</text>
+
+      <!-- Fold 2: TEST in column 1 -->
+      <text x="20" y="27" text-anchor="middle" font-size="11" fill="#1a1a2e">F2</text>
+      <rect x="40"  y="16" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="27" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="150" y="16" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="27" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+      <rect x="260" y="16" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="27" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="370" y="16" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="27" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="480" y="16" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="27" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="590" y="16" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="27" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="700" y="16" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="27" text-anchor="middle" font-size="9" fill="white">train</text>
+
+      <!-- Fold 3: TEST in column 2 -->
+      <text x="20" y="43" text-anchor="middle" font-size="11" fill="#1a1a2e">F3</text>
+      <rect x="40"  y="32" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="43" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="150" y="32" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="43" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="260" y="32" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="43" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+      <rect x="370" y="32" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="43" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="480" y="32" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="43" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="590" y="32" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="43" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="700" y="32" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="43" text-anchor="middle" font-size="9" fill="white">train</text>
+
+      <!-- Fold 4: TEST in column 3 -->
+      <text x="20" y="59" text-anchor="middle" font-size="11" fill="#1a1a2e">F4</text>
+      <rect x="40"  y="48" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="59" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="150" y="48" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="59" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="260" y="48" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="59" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="370" y="48" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="59" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+      <rect x="480" y="48" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="59" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="590" y="48" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="59" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="700" y="48" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="59" text-anchor="middle" font-size="9" fill="white">train</text>
+
+      <!-- Fold 5: TEST in column 4 -->
+      <text x="20" y="75" text-anchor="middle" font-size="11" fill="#1a1a2e">F5</text>
+      <rect x="40"  y="64" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="75" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="150" y="64" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="75" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="260" y="64" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="75" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="370" y="64" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="75" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="480" y="64" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="75" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+      <rect x="590" y="64" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="75" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="700" y="64" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="75" text-anchor="middle" font-size="9" fill="white">train</text>
+
+      <!-- Fold 6: TEST in column 5 -->
+      <text x="20" y="91" text-anchor="middle" font-size="11" fill="#1a1a2e">F6</text>
+      <rect x="40"  y="80" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="91" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="150" y="80" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="91" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="260" y="80" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="91" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="370" y="80" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="91" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="480" y="80" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="91" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="590" y="80" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+      <rect x="700" y="80" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="91" text-anchor="middle" font-size="9" fill="white">train</text>
+
+      <!-- Fold 7: TEST in column 6 -->
+      <text x="20" y="107" text-anchor="middle" font-size="11" fill="#1a1a2e">F7</text>
+      <rect x="40"  y="96" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="90"  y="107" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="150" y="96" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="200" y="107" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="260" y="96" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="310" y="107" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="370" y="96" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="420" y="107" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="480" y="96" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="530" y="107" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="590" y="96" width="100" height="14" fill="#4A7C59" stroke="#1a1a2e" stroke-width="0.4"/><text x="640" y="107" text-anchor="middle" font-size="9" fill="white">train</text>
+      <rect x="700" y="96" width="100" height="14" fill="#E07B39" stroke="#1a1a2e" stroke-width="0.4"/><text x="750" y="107" text-anchor="middle" font-size="9" font-weight="bold" fill="white">TEST</text>
+    </g>
+
+    <!-- Caption below matrix -->
+    <text x="480" y="183" text-anchor="middle" font-size="12" fill="#1a1a2e">→ Final metrics: top-1 / top-5 averaged across <tspan font-weight="bold">20 subjects × 7 folds = 140 trainings</tspan> per condition</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="60" y1="600" x2="1340" y2="600" stroke="#CCC" stroke-width="1"/>
+
+  <!-- ===================== ROW 3: TWO ARCHITECTURES ===================== -->
+  <text x="60" y="635" font-size="17" font-weight="bold" fill="#1a1a2e">
+    <tspan fill="#3D7EA6">③</tspan>  Two Encoder Pipelines (Compressed Features vs. Raw EEG)
+  </text>
+
+  <!-- LEFT: DE/PSD architecture -->
+  <g transform="translate(60, 660)">
+    <rect x="0" y="0" width="620" height="295" rx="6" fill="#F5F9FC" stroke="#3D7EA6" stroke-width="1.5"/>
+    <text x="310" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#3D7EA6">(a) Compressed Features → GLMNet</text>
+
+    <!-- Input -->
+    <rect x="180" y="45" width="260" height="55" rx="4" fill="#3D7EA6" stroke="#1a1a2e" stroke-width="1.5"/>
+    <text x="310" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="white">DE / PSD features</text>
+    <text x="310" y="86" text-anchor="middle" font-size="12" fill="white"><tspan font-style="italic">X</tspan> ∈ ℝ⁶² ˣ ⁵   (5 bands: δ θ α β γ)</text>
+
+    <line x1="310" y1="105" x2="310" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arr-blk)"/>
+
+    <!-- GLMNet -->
+    <rect x="120" y="135" width="380" height="80" rx="4" fill="#FFE5D0" stroke="#1a1a2e" stroke-width="1.5"/>
+    <text x="310" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a2e">GLMNet</text>
+    <text x="310" y="174" text-anchor="middle" font-size="11" fill="#555">Global-Local Mixed Network</text>
+    <rect x="145" y="184" width="105" height="24" rx="3" fill="white" stroke="#1a1a2e"/>
+    <text x="197" y="200" text-anchor="middle" font-size="11" fill="#1a1a2e">Global branch</text>
+    <rect x="370" y="184" width="105" height="24" rx="3" fill="white" stroke="#1a1a2e"/>
+    <text x="422" y="200" text-anchor="middle" font-size="11" fill="#1a1a2e">Local branch</text>
+
+    <line x1="310" y1="220" x2="310" y2="240" stroke="#333" stroke-width="2" marker-end="url(#arr-blk)"/>
+
+    <!-- Output -->
+    <rect x="200" y="248" width="220" height="35" rx="4" fill="#1a1a2e" stroke="#1a1a2e"/>
+    <text x="310" y="270" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Softmax → 40 classes</text>
+  </g>
+
+  <!-- RIGHT: Raw EEG architecture -->
+  <g transform="translate(720, 660)">
+    <rect x="0" y="0" width="620" height="295" rx="6" fill="#F5F9FC" stroke="#3D7EA6" stroke-width="1.5"/>
+    <text x="310" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#3D7EA6">(b) Raw 200 Hz EEG → Spatial-Temporal CNN</text>
+
+    <!-- Input -->
+    <rect x="100" y="45" width="290" height="55" rx="4" fill="#7B4F8C" stroke="#1a1a2e" stroke-width="1.5"/>
+    <text x="245" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Raw EEG (2-sec window)</text>
+    <text x="245" y="86" text-anchor="middle" font-size="12" fill="white"><tspan font-style="italic">X</tspan> ∈ ℝ⁶² ˣ ⁴⁰⁰</text>
+
+    <line x1="245" y1="105" x2="245" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arr-blk)"/>
+
+    <!-- Spatial Conv -->
+    <rect x="100" y="130" width="290" height="36" rx="4" fill="#FFE5D0" stroke="#1a1a2e" stroke-width="1.5"/>
+    <text x="245" y="153" text-anchor="middle" font-size="13" fill="#1a1a2e">Spatial Conv (channel mixing)</text>
+
+    <line x1="245" y1="170" x2="245" y2="186" stroke="#333" stroke-width="2" marker-end="url(#arr-blk)"/>
+
+    <!-- Temporal Encoder -->
+    <rect x="100" y="190" width="290" height="36" rx="4" fill="#FFE5D0" stroke="#1a1a2e" stroke-width="1.5"/>
+    <text x="245" y="213" text-anchor="middle" font-size="13" fill="#1a1a2e">Temporal CNN encoder</text>
+
+    <line x1="245" y1="230" x2="245" y2="246" stroke="#333" stroke-width="2" marker-end="url(#arr-blk)"/>
+
+    <!-- Output -->
+    <rect x="135" y="248" width="220" height="35" rx="4" fill="#1a1a2e" stroke="#1a1a2e"/>
+    <text x="245" y="270" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Mean pool → Linear → 40</text>
+
+    <!-- OOM warning callout -->
+    <rect x="420" y="170" width="180" height="80" rx="6" fill="#FFF1F1" stroke="#C1121F" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="510" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#C1121F">⚠ Bottleneck</text>
+    <text x="510" y="212" text-anchor="middle" font-size="11" fill="#1a1a2e">Full self-attention</text>
+    <text x="510" y="226" text-anchor="middle" font-size="11" fill="#1a1a2e">at <tspan font-style="italic">T</tspan>=400 → OOM</text>
+    <text x="510" y="244" text-anchor="middle" font-size="11" font-style="italic" fill="#C1121F">Motivates §7</text>
+  </g>
+
+</svg>
