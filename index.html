@@ -235,6 +235,22 @@
           </div>
           <i class="fas fa-arrow-right"></i>
         </a>
+        <a href="https://github.com/greenMangoes13/mmai/tree/master/homework/homework-4" class="work-item">
+          <div class="work-info">
+            <h5>Homework 4 — Reinforcement Learning (GRPO)</h5>
+            <p>GRPO training of Qwen3-VL-2B on BUSI; 48.1% accuracy vs. 21.8% baseline, 100% format compliance.</p>
+            <span class="work-venue">Course Assignment</span>
+          </div>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="https://github.com/greenMangoes13/mmai/tree/master/homework/homework-5" class="work-item">
+          <div class="work-info">
+            <h5>Homework 5 — Multimodal AI Agents</h5>
+            <p>HITL clinical decision-support agent for breast ultrasound triage, built with smolagents and evaluated on adversarial benchmarks.</p>
+            <span class="work-venue">Course Assignment</span>
+          </div>
+          <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
   </div>
@@ -424,6 +440,24 @@
                 </div>
                 <i class="fas fa-arrow-right"></i>
               </a>
+
+              <a href="https://github.com/greenMangoes13/mmai/tree/master/homework/homework-4" class="work-item">
+                <div class="work-info">
+                  <h5>Homework 4 — Reinforcement Learning for VLMs (GRPO)</h5>
+                  <p>Implemented GRPO advantage computation and rule-based reward functions to train Qwen3-VL-2B-Instruct on BUSI. Best run (lr=5e-5, temp=0.7, LoRA r=32) achieved 48.1% accuracy vs. 21.8% zero-shot baseline, with 100% format compliance.</p>
+                  <span class="work-venue">Reinforcement Learning / GRPO</span>
+                </div>
+                <i class="fas fa-arrow-right"></i>
+              </a>
+
+              <a href="https://github.com/greenMangoes13/mmai/tree/master/homework/homework-5" class="work-item">
+                <div class="work-info">
+                  <h5>Homework 5 — Multimodal AI Agents</h5>
+                  <p>Built a human-in-the-loop clinical decision-support agent for breast ultrasound triage using smolagents and Qwen2.5-VL-3B. Designed a custom HITL benchmark, evaluated against adversarial tasks, and instrumented with Langfuse for trace-level observability.</p>
+                  <span class="work-venue">Agentic AI / HITL Systems</span>
+                </div>
+                <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -488,6 +522,38 @@
               <img src="./homework/homework-3/imgs/hw3_2.png" alt="HW3: baseline inference on BUSI" loading="lazy"/>
               <h2 class="subtitle has-text-centered">
                 HW3 — Pre-trained Qwen2.5-VL baseline: 75% accuracy, with benign over-prediction
+              </h2>
+            </div>
+
+            <!-- HW4 hyperparameter sweep -->
+            <div class="item">
+              <img src="./homework/homework-4/imgs/Screenshot%202026-05-07%20at%2012.18.17%20PM.png" alt="HW4: GRPO hyperparameter comparison" loading="lazy"/>
+              <h2 class="subtitle has-text-centered">
+                HW4 — GRPO sweep: run3 (lr=5e-5, temp=0.7, r=32) achieved best last-5 avg reward of 1.500
+              </h2>
+            </div>
+
+            <!-- HW4 evaluation -->
+            <div class="item">
+              <img src="./homework/homework-4/imgs/Screenshot%202026-05-07%20at%2012.18.26%20PM.png" alt="HW4: GRPO vs base model evaluation" loading="lazy"/>
+              <h2 class="subtitle has-text-centered">
+                HW4 — GRPO-trained model: 48.1% accuracy and 100% format compliance vs. 21.8% zero-shot baseline
+              </h2>
+            </div>
+
+            <!-- HW5 architecture -->
+            <div class="item">
+              <img src="./homework/homework-5/imgs/hw5%20arch.png" alt="HW5: BUSI HITL agent architecture" loading="lazy"/>
+              <h2 class="subtitle has-text-centered">
+                HW5 — BUSI HITL Agent: VLM-backed smolagents loop with clinician review, BI-RADS reference, and PubMed search
+              </h2>
+            </div>
+
+            <!-- HW5 vision vs text -->
+            <div class="item">
+              <img src="./homework/homework-5/imgs/5_3.png" alt="HW5: text-only vs vision agent comparison" loading="lazy"/>
+              <h2 class="subtitle has-text-centered">
+                HW5 — Text-only vs. vision agent: same 2/5 pass rate, but vision flips which tasks succeed
               </h2>
             </div>
 
