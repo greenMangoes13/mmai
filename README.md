@@ -9,9 +9,15 @@ This repo contains my homework assignments and random thoughts throughout the cl
 Hi I'm Emma, a junior majoring in Computation and Cognition at MIT. I do research on engineering glutamate reponsive fMRI probes. Outside of class, I am a vasity sailor and enjoy eating, snowboarding, rock-climbing, and singing. 
 
 ## Final Project
-For my final project, our group is auditing and improving EEG-to-video generation models, benchmarking cross-modal reconstruction quality and evaluating alignment between neural signals and generated visual content.
+For my final project, our group audited and extended [EEG2Video](https://nips.cc/virtual/2024/poster/95156) — a NeurIPS 2024 model that reconstructs video from EEG brain signals. My contributions include:
 
-[[Group Repo]](https://github.com/winstonqian/EEG2Video) [[My Fork]](https://github.com/greenMangoes13/EEG2Video) 
+- Benchmarked the EEG-VP semantic classification pipeline (DE/PSD features, MLP architecture) and established a ~4.15% Top-1 baseline on 40 video categories
+- Extended the codebase to natively handle raw 200Hz EEG (`T=400`) by dynamically scaling CNN spatial dimensions
+- Audited for data leakage in train/test normalization — found a **13x variance drop** in PSD features when leakage was removed
+- Ran clip-index stratification to confirm the model decodes stimulus perception, not protocol artifacts
+- Prototyped temporal attention pooling (`O(T²)`); found it too compute-expensive vs. CNN pooling
+
+[Group Repo](https://github.com/winstonqian/EEG2Video) | [My Copy](https://github.com/greenMangoes13/mmai/tree/master/EEGtoVideo)
 
 ## Homework
 - [Homework 1 - Datasets](./homework/homework-1/) — Curated and analyzed a multimodal dataset, exploring preprocessing, annotation pipelines, and baseline evaluation strategies.
