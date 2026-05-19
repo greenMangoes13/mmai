@@ -9,13 +9,11 @@ This repo contains my homework assignments and random thoughts throughout the cl
 Hi I'm Emma, a junior majoring in Computation and Cognition at MIT. I do research on engineering glutamate reponsive fMRI probes. Outside of class, I am a vasity sailor and enjoy eating, snowboarding, rock-climbing, and singing. 
 
 ## Final Project
-For my final project, our group audited and extended [EEG2Video](https://nips.cc/virtual/2024/poster/95156) — a NeurIPS 2024 model that reconstructs video from EEG brain signals. My contributions include:
+For my final project, our group built **NeuroCLIP + LATA** — two diagnostic extensions on top of the [EEG2Video](https://nips.cc/virtual/2024/poster/95156) (NeurIPS 2024) benchmark for decoding visual concepts from EEG signals.
 
-- Benchmarked the EEG-VP semantic classification pipeline (DE/PSD features, MLP architecture) and established a ~4.15% Top-1 baseline on 40 video categories
-- Extended the codebase to natively handle raw 200Hz EEG (`T=400`) by dynamically scaling CNN spatial dimensions
-- Audited for data leakage in train/test normalization — found a **13x variance drop** in PSD features when leakage was removed
-- Ran clip-index stratification to confirm the model decodes stimulus perception, not protocol artifacts
-- Prototyped temporal attention pooling (`O(T²)`); found it too compute-expensive vs. CNN pooling
+**NeuroCLIP** maps EEG features into a frozen CLIP concept space to ask which SEED-DV visual categories are actually decodable. Key finding: CLIP geometry doesn't explain EEG decodability — activity-rich concepts (sports, music, people) decode significantly better than passive scenes (Recall@1: 6.79% vs 3.83%, p = 5.95e-8).
+
+**LATA (Latency-Aware Temporal Alignment)** learns a soft distribution over EEG-video delays during contrastive alignment to account for biological response latency. Key finding: all 20 SEED-DV subjects prefer a nonzero delay — 14/20 peak at ~790ms, and no subject peaks at zero lag.
 
 [Group Repo](https://github.com/winstonqian/EEG2Video) | [My Copy](https://github.com/greenMangoes13/mmai/tree/master/EEGtoVideo)
 
